@@ -1,40 +1,36 @@
-float ftoc(float f) {
+float fahrenheitToCentigrade(float f) {
   return ((f - 32) * 5 / 9); //Fahrenheit to Centigrade.
 }
 
-float ctof(float c) {
+float centigradeToFahrenheit(float c) {
   return ((c * 9 / 5) + 32); //Centigrade to Fahrenheit.
 }
 
 
 void fahrenheitCentigradeConversion(void) {
-  std::string temp;
-  std::string label;
-  float ot = 0.0;
-  float t = 0.0;
+  std::string userInput;
+  float useableTemp = 0.0;
+  float convertedTemp = 0.0;
 
-  std::cout << "\nPlease enter the starting temperature: ";
-  std::getline(std::cin, temp);
-  ot = stof(temp);
+  std::cout << std::endl << "Please enter the starting temperature: " << std::endl;
+  std::getline(std::cin, userInput);
+  useableTemp = stof(userInput);
 
-  std::cout << "\nPress ‘C’ to convert from Fahrenheit to Centigrade";
-  std::cout << "\nPress ‘F’ to convert from Centigrade to Fahrenheit.\n\n";
+  std::cout << "Press ‘C’ to convert from Fahrenheit to Centigrade" << std::endl;
+  std::cout << "Press ‘F’ to convert from Centigrade to Fahrenheit." << std::endl << std::endl;
 
   std::cout << "\nYour choice: ";
-  std::getline(std::cin, temp);
+  std::getline(std::cin, userInput);
 
-  if(temp == "C" || temp == "c") {
-    t = ftoc(ot);
-    label = "Fahrenheit";
+  if(userInput == "C" || userInput == "c") {
+    convertedTemp = fahrenheitToCentigrade(useableTemp);
   }
 
-  if(temp == "F" || temp == "f") {
-    t = ctof(ot);
-    label = "Centigrade";
+  if(userInput == "F" || userInput == "f") {
+    convertedTemp = centigradeToFahrenheit(useableTemp);
   }
 
-  std::cout << ot << " degrees " << label << " is = " << t << "\n";
-
+  std::cout << useableTemp << " degrees " << " is = " << convertedTemp << "\n";
 }
 
 void selfServiceCheckout(void) {
