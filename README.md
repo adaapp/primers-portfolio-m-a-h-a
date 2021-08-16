@@ -11,7 +11,11 @@ To help complete this challenge I needed to break the overall problem down into 
 * Create a method to convert C->F
  
 #### Reflection (as well as issues, challenges & resolutions)
-The biggest issue was related to testing the areas my solution failed, originally, I tested to see if it worked - however, it wasn’t until I tried to break it that I found some of the more serious issues with my design and implementation.  For example, ...
+We have been doing quite a lot of SOLID principle work recently at work and so this was timely. Ideally, I would have liked to have renamed the main function, currently "fahrenheitCentigradeConversion", as this is not actually doing the conversion anymore, however this would break the calls in main.cpp and I thought best not to.
+
+I would also like to pull out parts of the if statements, line 32, into separate functions but it started to feel like I was overthinking things. 
+
+Didn't really have any issues to speak of, other than getting the output function to return a string rather than output it to screen. It seems there isn't an easy way to convert floats to strings in C++ so left if as a void function. Not ideal.
 
 ### Primer 2 - Self-service Checkout
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elit in magna porttitor convallis. Ut eu justo rutrum, luctus lorem a, pretium quam. Sed ut commodo lectus. Vestibulum ut ligula lorem. Nulla mattis varius ex ac luctus. Aenean nec laoreet enim. Sed lorem erat, vestibulum ut faucibus vel, pellentesque nec felis. Vivamus metus tellus, pretium eu sodales interdum, fringilla ut mauris. ....
