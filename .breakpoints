@@ -1,0 +1,36 @@
+{
+  "files": {
+    "include/monday.h": [
+      {
+        "id": "5419705b-cc5e-4bf7-9b7e-73f1f31f3c4a",
+        "line": 9,
+        "version": 421,
+        "index": 180
+      },
+      {
+        "id": "3c2c51ee-3331-4358-af6d-4086c6ccae5f",
+        "line": 9,
+        "version": 421,
+        "index": 180
+      },
+      {
+        "id": "5e7d2755-eca6-4a23-b90a-036fccb48823",
+        "line": 35,
+        "version": 824,
+        "index": 1215
+      },
+      {
+        "id": "59bd839d-8896-425a-b5d8-b293356ababf",
+        "line": 47,
+        "version": 421,
+        "index": 1601
+      },
+      {
+        "id": "fbe933c8-f3ee-41de-86d7-5119c4a688c4",
+        "line": 47,
+        "version": 421,
+        "index": 1948
+      }
+    ]
+  }
+}
