@@ -87,29 +87,51 @@ void selfServiceCheckout(void) {
     allItemNames.push_back(itemName); //store the item in the vector
     std::cout << std::endl << "Please enter the quantity of item " << x << ":" << std::endl;
     std::getline(std::cin, itemQty);
-    allItemQty.push_back(stoi(itemQty)); //store the item in the vector
+    try {
+      allItemQty.push_back(stoi(itemQty)); //store the item in the vector
+      //below we ensure the user has entered a positive value only, if not, throw an error. Ideally would check for decimals but stoi takes care of that anyway.
+      if (stoi(itemQty) < 0) {
+        throw std::invalid_argument("Received a negative value.");
+      }
+    } catch (std::exception e) {
+      std::cout << "Please try again and ensure you only enter a positive number.";
+      quitOrContinue = "q";
+      break;
+    }
     std::cout << std::endl << "Please enter the cost of item " << x << ":" << std::endl;
     std::getline(std::cin, itemCost);
-    allItemCosts.push_back(stof(itemCost)); //store the item in the vector
+    try {
+      allItemCosts.push_back(stof(itemCost)); //store the item in the vector
+      //below we ensure the user has entered a positive value only, if not, throw an error.
+      if (stof(itemCost) < 0) {
+        throw std::invalid_argument("Received a negative value.");
+      }
+    } catch (std::exception e) {
+      std::cout << "Please try again and ensure you only enter a positive monetary value without any currency symbols.";
+      quitOrContinue = "q";
+      break;
+    }
     std::cout << std::endl << "Press any key to add more items or 0 to finish" << std::endl;
     std::getline(std::cin, quitOrContinue);
     x++; //increment loop
   }
   while (quitOrContinue != "0"); //check for quit key "0"
 
-  totalItems = sumQuantities(allItemQty); //get the total quantity of items
-  subtotal = sumTotal(allItemQty, allItemCosts); //get the subtotal cost
-  totalTax = (subtotal/100) * SHOPPING_TAX; //work out the total tax
+  if (quitOrContinue == "0") { //ensure we've not thrown errors in the loop
+    totalItems = sumQuantities(allItemQty); //get the total quantity of items
+    subtotal = sumTotal(allItemQty, allItemCosts); //get the subtotal cost
+    totalTax = (subtotal/100) * SHOPPING_TAX; //work out the total tax
 
-  //receipt
-  std::cout << std::endl << "Your receipt:" << std::endl;
+    //receipt
+    std::cout << std::endl << "Your receipt:" << std::endl;
 
-  //print out a receipt showing number of items, name, cost each
-  for (int i=0; i<allItemNames.size(); i++) {
-    std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << round(allItemCosts[i] * 100)/100 << " each." << std::endl;
+    //print out a receipt showing number of items, name, cost each
+    for (int i=0; i<allItemNames.size(); i++) {
+      std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << round(allItemCosts[i] * 100)/100 << " each." << std::endl;
+    }
+    
+    //display subtotal, tax amount and the total. Use round to keep things to two decimal places
+    std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << round(subtotal * 100)/100 << std::endl << "Shopping Tax = £" << round(totalTax * 100)/100 << std::endl << std::endl << "Total: £" << round((subtotal + totalTax) * 100)/100 << std::endl;
   }
-  
-  //display subtotal, tax amount and the total. Use round to keep things to two decimal places
-  std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << round(subtotal * 100)/100 << std::endl << "Shopping Tax = £" << round(totalTax * 100)/100 << std::endl << std::endl << "Total: £" << round((subtotal + totalTax) * 100)/100 << std::endl;
 }
 
