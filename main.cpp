@@ -5,6 +5,7 @@
 #include <ctime>//declares a set of functions, macros and types to work with date and time information e.g. the time() function is used to get the current time
 #include <vector> //allows for the creation of dynamic lists
 #include <iomanip> //allows us to use setprecision
+#include <locale.h> //needed to set the local
 
 //include default source files for daily primer challenges
 #include "include/monday.h"
@@ -34,6 +35,7 @@ void prompt(void) {
 }
 
 void menu(void) {
+  setlocale(LC_ALL,""); //sets the local and enables us to use utf8 encoding for example
   std::string choiceString;
 	int choice = -1; //declare and initialise an integer type variable
 	do { //set up a continuous loop
