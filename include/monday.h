@@ -48,7 +48,68 @@ void fahrenheitCentigradeConversion(void) {
   }
 }
 
+int sumQuantities(std::vector<int> vectorQty) {
+  int quantitySum = 0;
+   
+  std::for_each(vectorQty.begin(), vectorQty.end(), [&] (int n) {
+    quantitySum += n;
+  });
+
+  return quantitySum;
+}
+
+float sumTotal(std::vector<int> vectorQty, std::vector<float> vectorTtl) {
+  float totalSum = 0.0;
+
+  for (int i=0; i<vectorQty.size(); i++) {
+    totalSum += vectorQty[i] * vectorTtl[i];
+  }
+
+  return totalSum;
+}
+
 void selfServiceCheckout(void) {
-	std::cout << " - selfServiceCheckout: not yet implemented\n\n";
+	#define SHOPPING_TAX 5.5 //shopping tax
+  float subtotal = 0.0;
+  float totalTax = 0.0;
+  int totalItems = 0;
+  int x = 1;
+  std::string itemName, itemQty, itemCost, quitOrContinue;
+  //use vectors instead of array as arrays need to be declared with an amount
+  std::vector<float> allItemCosts;
+  std::vector<int> allItemQty;
+  std::vector<std::string> allItemNames;
+
+  do {
+    //loop and ask user for the name, quantity and cost of each item
+    std::cout << std::endl << "Please enter the name of item " << x << ":" << std::endl;
+    std::getline(std::cin, itemName);
+    allItemNames.push_back(itemName); //store the item in the vector
+    std::cout << std::endl << "Please enter the quantity of item " << x << ":" << std::endl;
+    std::getline(std::cin, itemQty);
+    allItemQty.push_back(stoi(itemQty)); //store the item in the vector
+    std::cout << std::endl << "Please enter the cost of item " << x << ":" << std::endl;
+    std::getline(std::cin, itemCost);
+    allItemCosts.push_back(stof(itemCost)); //store the item in the vector
+    std::cout << std::endl << "Press any key to add more items or 0 to finish" << std::endl;
+    std::getline(std::cin, quitOrContinue);
+    x++; //increment loop
+  }
+  while (quitOrContinue != "0"); //check for quit key "0"
+
+  totalItems = sumQuantities(allItemQty); //get the total quantity of items
+  subtotal = sumTotal(allItemQty, allItemCosts); //get the subtotal cost
+  totalTax = (subtotal/100) * SHOPPING_TAX; //work out the total tax
+
+  //receipt
+  std::cout << std::endl << "Your receipt:" << std::endl;
+
+  //print out a receipt showing number of items, name, cost each
+  for (int i=0; i<allItemNames.size(); i++) {
+    std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << round(allItemCosts[i] * 100)/100 << " each." << std::endl;
+  }
+  
+  //display subtotal, tax amount and the total. Use round to keep things to two decimal places
+  std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << round(subtotal * 100)/100 << std::endl << "Shopping Tax = £" << round(totalTax * 100)/100 << std::endl << std::endl << "Total: £" << round((subtotal + totalTax) * 100)/100 << std::endl;
 }
 
