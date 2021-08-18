@@ -6,6 +6,8 @@
 #include <vector> //allows for the creation of dynamic lists
 #include <iomanip> //allows us to use setprecision
 #include <locale.h> //needed to set the local
+#include <fstream> //provides high level file stream IO operations
+#include <sys/stat.h> //returns a structure with info about a file
 
 //include default source files for daily primer challenges
 #include "include/monday.h"
