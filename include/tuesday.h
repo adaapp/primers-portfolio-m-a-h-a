@@ -1,9 +1,11 @@
 std::vector<int> definePassword(std::string password) {
+  //function to count the component parts of the password (letters, numbers etc)
   int alphanumeric, numbers, specials, x, poundSignFound;
   std::vector<int> totals;
 
-  alphanumeric = numbers = specials = poundSignFound = x = 0;
+  alphanumeric = numbers = specials = poundSignFound = x = 0; //set everything to 0
 
+  //loop through password and count component parts
   while (x <= (password.length()-1)) {
     if ((password[x] >= 'a' && password[x] <= 'z') || (password[x] >= 'A' && password[x] <= 'Z')) {
       alphanumeric++;
@@ -11,7 +13,8 @@ std::vector<int> definePassword(std::string password) {
       numbers++;
     } else {
       if (password[x] == char(163)) {
-        //because of ASCII and locals, the £ symbol is counted twice, this removes one
+        //because of ASCII and locals, the £ symbol is counted twice, this removes one count
+        //there are probably others that fall into here but testing hasn't found any
         poundSignFound++;
       }
       specials++;
@@ -19,15 +22,16 @@ std::vector<int> definePassword(std::string password) {
     x++;
   }
 
-  totals.push_back(alphanumeric); //0
-  totals.push_back(numbers); //1
-  totals.push_back(specials - poundSignFound); //2
-  totals.push_back(password.length()); //3
+  totals.push_back(alphanumeric);
+  totals.push_back(numbers);
+  totals.push_back(specials - poundSignFound);
+  totals.push_back(password.length());
 
   return totals;
 }
 
 int chckPassword(std::vector<int> passwordTotals) {
+  //this is the logic to check the password and return the weakness (1) or strength (4). 0 is error
   if ((passwordTotals[2] <= 0 || passwordTotals[2] <=3) && (passwordTotals[0] <=0 || passwordTotals[1] <=0)) {
     return 1;
   } else if ((passwordTotals[3] >= 4 && passwordTotals[3] <= 7) || ((passwordTotals[0] <=0 || passwordTotals[1] <=0) && passwordTotals[2] >= 4)) {
@@ -75,7 +79,44 @@ void passwordComplexityChecker(void) {
   std::cout << output;
 }
 
+void displayEmployeeList(std::vector<std::string> employees) {
+  //simple function to loop through the list of employees and display them
+  std::cout << std::endl << "There are currently " << employees.size() << " employees:" << std::endl;
+  for (int i=0; i<employees.size(); i++ ) {
+    std::cout << employees[i] << std::endl;
+  }
+}
 
 void employeeListRemoval(void) {
-	std::cout << " - employeeListRemoval: not yet implemented\n\n";
+	std::vector<std::string> employees;
+  std::string userInput = "";
+
+  //initial set of employees
+  employees.push_back("JOHN SMITH");
+  employees.push_back("JAELYNN STUART");
+  employees.push_back("KALEY BARAJAS");
+  employees.push_back("WALTER COLLIER");
+  employees.push_back("CALE MYERS");
+
+  displayEmployeeList(employees);
+
+  while (userInput != "0") { //check for quit key "0"
+    std::cout << "Enter an employee name to remove or enter a new name to add (or 0 to exit):" << std::endl << std::endl;
+    std::getline(std::cin, userInput); //get input
+    std::transform(userInput.begin(), userInput.end(), userInput.begin(), ::toupper); //transform input to uppercase, makes searching easier
+
+    //search for existing employee.
+    std::vector<std::string>::iterator it = std::find(employees.begin(), employees.end(), userInput);
+    
+    if (userInput != "0") { //if 0 we should quit
+      if (it == employees.end()) {
+        //nothing found, adding someone new
+        employees.push_back(userInput); //add to vector
+        displayEmployeeList(employees); //display updated list
+      } else {
+        employees.erase(it); //found someone, remove them
+        displayEmployeeList(employees); //display updated list
+      }
+    }
+  }
 }
