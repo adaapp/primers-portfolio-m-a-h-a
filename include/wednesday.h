@@ -1,4 +1,5 @@
 bool fileExists(std::string filename) {
+  //check if file exists
   struct stat buffer;
 
   if (stat(filename.c_str(), &buffer) == 0) {
@@ -8,6 +9,7 @@ bool fileExists(std::string filename) {
 }
 
 void displayResult(std::vector<std::string> results, int x, bool foundOrNot) {
+  //display the result, either found or not found
   if (!foundOrNot) {
     std::cout << "Searching " << x << " records..." << std::endl << std::endl << "Sorry, no contact details found." << std::endl;
   } else {
@@ -18,7 +20,7 @@ void displayResult(std::vector<std::string> results, int x, bool foundOrNot) {
   }
 }
 
-void readFile(std::string fileName, std::string searchString) {
+void readFileFromSearch(std::string fileName, std::string searchString) {
   std::string fileLine;
   std::ifstream fileobject;
   bool doesFileExist = false;
@@ -26,14 +28,15 @@ void readFile(std::string fileName, std::string searchString) {
   int x = 0;
   std::vector<std::string> results;
 
-  doesFileExist = fileExists(fileName);
+  doesFileExist = fileExists(fileName); //check if file exists
 
   if (doesFileExist) {
     fileobject.open(fileName);
 
-    while(!fileobject.eof()) {
+    while(!fileobject.eof()) { //loop through the file
       getline(fileobject, fileLine);
       if (fileLine.find(searchString) != std::string::npos) {
+        //search line by line and bring back the entire line if something is found
         results.push_back(fileLine);
         itemFound = true;
         x++;
@@ -44,12 +47,10 @@ void readFile(std::string fileName, std::string searchString) {
     }
     fileobject.close();
     
-    if (!itemFound) {
-      //std::cout << "Searching " << x << " records..." << std::endl << std::endl << "Sorry, no contact details found." << std::endl;
+    if (!itemFound) { //show results
       displayResult(results, x, false);
     } else {
       displayResult(results, x, true);
-      //std::cout << "Searching " << x << " records..." << std::endl << std::endl << "Contact Details Found:" << std::endl << fileLine << std::endl;
     }
   } else {
     std::cout << std::endl << "File does not exist" << std::endl;
@@ -63,10 +64,42 @@ void phoneDirectory(void) {
 	std::cout << "Please enter a name or telephone number to search:" << std::endl;
   std::getline(std::cin, userInput);
 
-  readFile(fileName, userInput);
+  readFileFromSearch(fileName, userInput);
 }
 
+std::vector<std::string> splitFileByDelim(std::string fileName, std::string delim) {
+  std::string buffer;
+  bool doesFileExist = false;
+  std::string fileLine;
+  std::ifstream fileobject;
+  std::vector<std::string> items;
+
+  doesFileExist = fileExists(fileName); //check if file exists
+
+  if (doesFileExist) {
+    fileobject.open(fileName); //open file
+
+    while(!fileobject.eof()) { //loop through the file
+      getline(fileobject, fileLine); //grab each line
+      std::stringstream ss(fileLine); //this puts each line in a stream
+      
+      while(getline(ss, buffer, delim)) { //split the steam into a buffer at the delimiter
+        items.push_back(buffer); //push the item into a vector
+      }
+    }
+    fileobject.close(); //close the file
+
+    for (int i=0; i<items.size(); i++ ) {
+      std::cout << items[i] << std::endl;
+    }
+  }
+  return items; //send split vector back
+}
 
 void dataFileParser(void) {
-	std::cout << " - dataFileParser: not yet implemented\n\n";
+  std::string fileName = "primerChallenge6.csv";
+  std::string delim = "','";
+  
+  splitFileByDelim(fileName, delim);
+  
 }
