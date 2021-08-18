@@ -67,7 +67,7 @@ void phoneDirectory(void) {
   readFileFromSearch(fileName, userInput);
 }
 
-std::vector<std::string> splitFileByDelim(std::string fileName, std::string delim) {
+std::vector<std::string> splitFileByDelim(std::string fileName, char delim) {
   std::string buffer;
   bool doesFileExist = false;
   std::string fileLine;
@@ -98,8 +98,8 @@ std::vector<std::string> splitFileByDelim(std::string fileName, std::string deli
 
 void dataFileParser(void) {
   std::string fileName = "primerChallenge6.csv";
-  std::string delim = "','";
-  
+  char delim = ',';
+
   splitFileByDelim(fileName, delim);
   
 }
