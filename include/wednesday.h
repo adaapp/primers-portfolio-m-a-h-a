@@ -67,34 +67,31 @@ void phoneDirectory(void) {
   readFileFromSearch(fileName, userInput);
 }
 
-void splitByDelim(std::vector<std::string> lines, char delim) {
+void splitByDelim(std::string lines, char delim) {
   std::string buffer;
   std::string temp;
   std::vector<std::string> itemsForDisplay;
   bool firstComma = true;
   bool secondComma = false;
 
-  //loop through each line, ignore column one, store column two
-  for (int i=0; i<lines.size(); i++ ) {
-    std::stringstream ss(lines[i]); //this puts each line in a stream
-    while(getline(ss, buffer, delim)) { //split the steam into a buffer at the delimiter
-      if (firstComma) {
-        temp = buffer[0]; //for some reason push_back doesn't like buffer[0] so do this
-        itemsForDisplay.push_back(temp);
-        firstComma = false;
-        secondComma = true;
-      } else if (secondComma)  {
-        //trim the whitespace at the start of the item
-        buffer.erase(0, buffer.find_first_not_of(" \n\r\t"));
-        itemsForDisplay.push_back(buffer); //push the item into a vector
-        secondComma = false;
-        firstComma = false;
-      } else {
-        buffer.erase(0, buffer.find_first_not_of(" \n\r\t"));
-        itemsForDisplay.push_back(buffer); //push the item into a vector
-        firstComma = true;
-        secondComma = true;
-      }
+  std::stringstream ss(lines); //this puts each line in a stream
+  while(getline(ss, buffer, delim)) { //split the steam into a buffer at the delimiter
+    if (firstComma) {
+      temp = buffer[0]; //for some reason push_back doesn't like buffer[0] so do this
+      itemsForDisplay.push_back(temp);
+      firstComma = false;
+      secondComma = true;
+    } else if (secondComma)  {
+      //trim the whitespace at the start of the item
+      buffer.erase(0, buffer.find_first_not_of(" \n\r\t"));
+      itemsForDisplay.push_back(buffer); //push the item into a vector
+      secondComma = false;
+      firstComma = false;
+    } else {
+      buffer.erase(0, buffer.find_first_not_of(" \n\r\t"));
+      itemsForDisplay.push_back(buffer); //push the item into a vector
+      firstComma = true;
+      secondComma = true;
     }
   }
 
@@ -109,6 +106,11 @@ void splitFileByLine(std::string fileName) {
   std::ifstream fileobject;
   std::vector<std::string> items;
   char delim = ',';
+  std::vector<std::string> itemsForDisplay;
+  bool firstComma = true;
+  bool secondComma = false;
+  std::string temp;
+  std::string buffer;
 
   doesFileExist = fileExists(fileName); //check if file exists
 
@@ -117,15 +119,14 @@ void splitFileByLine(std::string fileName) {
 
     while(!fileobject.eof()) { //loop through the file
       getline(fileobject, fileLine); //grab each line
-      items.push_back(fileLine); //push each line into a vector
+      splitByDelim(fileLine, delim); //pass each line to the split by , function
     }
     fileobject.close(); //close the file
 
-    for (int i=0; i<items.size(); i++ ) {
-      std::cout << items[i] << std::endl;
+    for (int i=0; i<itemsForDisplay.size(); i++ ) {
+      std::cout << itemsForDisplay[i] << std::endl;
     }
   }
-  splitByDelim(items, delim); //send split vector to be more split
 }
 
 void dataFileParser(void) {
