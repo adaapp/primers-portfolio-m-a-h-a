@@ -10,6 +10,33 @@ void output(float origTemp, float temperature, std::string convertTo, std::strin
   std::cout << origTemp << " degrees " << convertFrom << " is " << temperature << " in " << convertTo << std::endl;
 }
 
+bool checkForInt(std::string intToCheck, bool negativeAllowed) {
+  try {
+    int temp = stoi(intToCheck);
+    //below we ensure the user has entered a positive value only, if not, throw an error. Ideally would check for decimals but stoi takes care of that anyway.
+    if (negativeAllowed == 0 && stoi(intToCheck) < 0) {
+      throw std::invalid_argument("Received a negative value.");
+    }
+    return true;
+  } catch (std::exception e) {
+    std::cout << "Unrecognised entry. Please try again and ensure you only enter a positive number, e.g. 22 or 2" << std::endl;
+    return false;
+  }
+}
+
+bool checkForFloat(std::string floatToCheck, bool negativeAllowed) {
+  try {
+    float temp = stof(floatToCheck);
+    if (negativeAllowed == 0 && stof(floatToCheck) < 0) { //check for negative values
+      throw std::invalid_argument("Received a negative value.");
+    }
+    return true;
+  } catch (std::exception e) {
+    std::cout << "Unrecognised entry. Please try again and ensure you only enter a positive number, e.g. 22 or 22.5" << std::endl;
+    return false;
+  }
+}
+
 void fahrenheitCentigradeConversion(void) {
   //declare variables
   std::string userInput, tempChoice;
@@ -21,34 +48,109 @@ void fahrenheitCentigradeConversion(void) {
   std::cout << std::endl << "Please enter the starting temperature: " << std::endl;
   std::getline(std::cin, userInput);
 
-  //loop to keep the program running should a user enter anything other than 'c' or 'f'
-  while (!loopComplete) {
-    try {
-      //try/catch to ensure we can convert the temp the user has provided into a float
-      useableTemp = stof(userInput);
-      std::cout << std::endl << "Press ‘C’ to convert from Fahrenheit to Centigrade" << std::endl << "Press ‘F’ to convert from Centigrade to Fahrenheit." << std::endl << std::endl;
-      std::getline(std::cin, tempChoice);
+  //check if user has entered a useable number, 1 means negatives allowed
+  bool proceed = checkForFloat(userInput, 1);
+  if (proceed) {
+    useableTemp = stof(userInput);
+    std::cout << std::endl << "Press ‘C’ to convert from Fahrenheit to Centigrade" << std::endl << "Press ‘F’ to convert from Centigrade to Fahrenheit." << std::endl << std::endl;
+    std::getline(std::cin, tempChoice);
 
-      if (tempChoice == "C" || tempChoice == "c") {
-        convertedTemp = fahrenheitToCentigrade(useableTemp); //convert temperature
-        output(useableTemp, convertedTemp, "CENTIGRADE", "FAHRENHEIT"); //show output
-        loopComplete = true; //close loop
-      }
-      if (tempChoice == "F" || tempChoice == "f") {
-        convertedTemp = centigradeToFahrenheit(useableTemp);
-        output(useableTemp, convertedTemp, "FAHRENHEIT", "CENTIGRADE");
-        loopComplete = true;
-      } else if (!loopComplete) {
-        std::cout << std::endl << "Please enter only 'C' or 'F'." << std::endl;
-      }
-    } catch (std::exception e) {
-      std::cout << "Unrecognised entry. Please try again and ensure you only enter a number, e.g. 22 or 22.5" << std::endl;
+    if (tempChoice == "C" || tempChoice == "c") {
+      convertedTemp = fahrenheitToCentigrade(useableTemp); //convert temperature
+      output(useableTemp, convertedTemp, "CENTIGRADE", "FAHRENHEIT"); //show output
+      loopComplete = true; //close loop
+    }
+    if (tempChoice == "F" || tempChoice == "f") {
+      convertedTemp = centigradeToFahrenheit(useableTemp);
+      output(useableTemp, convertedTemp, "FAHRENHEIT", "CENTIGRADE");
       loopComplete = true;
+    } else if (!loopComplete) {
+      std::cout << std::endl << "Please enter only 'C' or 'F'." << std::endl;
     }
   }
 }
 
-void selfServiceCheckout(void) {
-	std::cout << " - selfServiceCheckout: not yet implemented\n\n";
+int sumQuantities(std::vector<int> vectorQty) {
+  int quantitySum = 0;
+  //loop through vector and sum quantity
+  std::for_each(vectorQty.begin(), vectorQty.end(), [&] (int n) {
+    quantitySum += n;
+  });
+  //return total quantity
+  return quantitySum;
 }
 
+float sumTotal(std::vector<int> vectorQty, std::vector<float> vectorTtl) {
+  float totalSum = 0.0;
+  //loop through vector and sum total cost
+  for (int i=0; i<vectorQty.size(); i++) {
+    totalSum += vectorQty[i] * vectorTtl[i];
+  }
+  //return total cost
+  return totalSum;
+}
+
+void printReceipt(std::vector<std::string> allItemNames, std::vector<int> allItemQty, std::vector<float> allItemCosts) {
+  #define SHOPPING_TAX 5.5 //shopping tax
+  int totalItems = 0;
+  float subtotal = 0.0;
+  float totalTax = 0.0;
+
+  totalItems = sumQuantities(allItemQty); //get the total quantity of items
+  subtotal = sumTotal(allItemQty, allItemCosts); //get the subtotal cost
+  totalTax = (subtotal/100) * SHOPPING_TAX; //work out the total tax
+
+  std::cout << std::endl << "Your receipt:" << std::endl;
+
+  //print out a receipt showing number of items, name, cost each
+  for (int i=0; i<allItemNames.size(); i++) {
+    std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << round(allItemCosts[i] * 100)/100 << " each." << std::endl;
+  }
+  
+  //display subtotal, tax amount and the total. Use round to keep things to two decimal places
+  std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << round(subtotal * 100)/100 << std::endl << "Shopping Tax = £" << round(totalTax * 100)/100 << std::endl << std::endl << "Total: £" << round((subtotal + totalTax) * 100)/100 << std::endl;
+}
+
+void selfServiceCheckout(void) {
+  int x = 1;
+  bool proceed = false;
+  std::string itemName, itemQty, itemCost, quitOrContinue;
+  //use vectors instead of array as arrays need to be declared with an amount
+  std::vector<float> allItemCosts;
+  std::vector<int> allItemQty;
+  std::vector<std::string> allItemNames;
+
+  do {
+    //loop and ask user for the name, quantity and cost of each item
+    std::cout << std::endl << "Please enter the name of item " << x << ":" << std::endl;
+    std::getline(std::cin, itemName);
+    allItemNames.push_back(itemName); //store the item in the vector
+    std::cout << std::endl << "Please enter the quantity of item " << x << ":" << std::endl;
+    std::getline(std::cin, itemQty);
+    proceed = checkForInt(itemQty, 0); //check if user has entered a useable number
+    if (proceed) {
+      allItemQty.push_back(stoi(itemQty)); //store the item in the vector
+    } else { //if input isn't valid, quit
+      quitOrContinue = "q";
+      break;
+    }
+    std::cout << std::endl << "Please enter the cost per item " << x << ":" << std::endl;
+    std::getline(std::cin, itemCost);
+    proceed = checkForFloat(itemCost, 0); //check if user has entered a useable number
+    if (proceed) {
+      allItemCosts.push_back(stof(itemCost)); //store the item in the vector
+    } else { //if input isn't valid, quit
+      quitOrContinue = "q";
+      break;
+    }
+    std::cout << std::endl << "Press any key to add more items or 0 to finish" << std::endl;
+    std::getline(std::cin, quitOrContinue);
+    x++; //increment loop
+  }
+  while (quitOrContinue != "0"); //check for quit key "0"
+
+  if (quitOrContinue == "0") { //ensure we've not thrown errors in the loop
+    //receipt
+    printReceipt(allItemNames, allItemQty, allItemCosts);
+  }
+}

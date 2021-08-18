@@ -13,12 +13,22 @@ To help complete this challenge I needed to break the overall problem down into 
 #### Reflection (as well as issues, challenges & resolutions)
 We have been doing quite a lot of SOLID principle work recently at work and so this was timely. Ideally, I would have liked to have renamed the main function, currently "fahrenheitCentigradeConversion", as this is not actually doing the conversion anymore, however this would break the calls in main.cpp and I thought best not to.
 
-I would also like to pull out parts of the if statements, line 32, into separate functions but it started to feel like I was overthinking things. 
-
-Didn't really have any issues to speak of, other than getting the output function to return a string rather than output it to screen. It seems there isn't an easy way to convert floats to strings in C++ so left if as a void function. Not ideal.
+Didn't really have any issues to speak of, other than getting the output function to return a string rather than output it to screen. It seems there isn't an easy way to convert floats to strings in C++ so left if as a void function.
 
 ### Primer 2 - Self-service Checkout
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elit in magna porttitor convallis. Ut eu justo rutrum, luctus lorem a, pretium quam. Sed ut commodo lectus. Vestibulum ut ligula lorem. Nulla mattis varius ex ac luctus. Aenean nec laoreet enim. Sed lorem erat, vestibulum ut faucibus vel, pellentesque nec felis. Vivamus metus tellus, pretium eu sodales interdum, fringilla ut mauris. ....
+This challenge requires us to allow the user to enter a number of characteristics of items that they are purchasing. As a minimum the user should be able to enter the number of items they are purchasing and the cost per item.
+
+The breakdown of work was similar to Primer 1:
+* Get relevant data from the user
+* Verify the data is in a useable format
+* Create a method to sum the total cost
+* Create a method to work out the Shopping Tax, fixed at 5.5%
+* Work out the total cost.
+
+### Reflection (as well as issues, challenges & resolutions)
+I decided to allow the user to enter the name of the items they were purchasing, followed by the amount and cost per item. The user can then decide if they have added all the items or if they want to add more.
+
+It was a relatively straight forward task. The main challenge was to discover how arrays work in C++ which led me to find out about Vectors. The next challenge was to ensure that, regardless of what the user entered for a monetary value, it always showed with two decimal places, so if a user entered "2", it should show "2.00".
 
 ..  
 ..  
