@@ -105,7 +105,7 @@ void employeeListRemoval(void) {
     std::getline(std::cin, userInput); //get input
     std::transform(userInput.begin(), userInput.end(), userInput.begin(), ::toupper); //transform input to uppercase, makes searching easier
 
-    //search for existing employee.
+    //search for existing employee which uses an iterator to go over the characters of the string.
     std::vector<std::string>::iterator it = std::find(employees.begin(), employees.end(), userInput);
     
     if (userInput != "0") { //if 0 we should quit

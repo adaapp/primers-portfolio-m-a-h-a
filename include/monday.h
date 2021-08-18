@@ -72,7 +72,7 @@ void fahrenheitCentigradeConversion(void) {
 
 int sumQuantities(std::vector<int> vectorQty) {
   int quantitySum = 0;
-  //loop through vector and sum quantity
+  //loop through vector and sum quantity. Ampersand means don't make a copy, use the actual item
   std::for_each(vectorQty.begin(), vectorQty.end(), [&] (int n) {
     quantitySum += n;
   });
