@@ -99,7 +99,7 @@ void splitByDelim(std::string lines, char delim) {
   bool firstComma = true;
   bool secondComma = false;
 
-  std::stringstream ss(lines); //this puts each line in a stream
+  std::stringstream ss(lines); //this puts the lines in a stream
   while(getline(ss, buffer, delim)) { //split the steam into a buffer at the delimiter
     if (firstComma) {
       temp = buffer[0]; //for some reason push_back doesn't like buffer[0] so do this
@@ -138,16 +138,16 @@ void showDataFileParserResult(std::vector<std::string> displayItems) {
     std::cout << "-";
   }
   std::cout << " ";
-  for (int i=0; i<(intMaxSalaryLength); i++) {
+  for (int i=0; i<(intMaxSalaryLength+1); i++) {
     std::cout << "-";
   }
   std::cout << std::endl;
   for (int i=0; i<itemsForDisplay.size(); i++ ) {
-    std::cout << std::setw(8) << std::left << std::setfill(' ') << itemsForDisplay[i];
+    std::cout << itemsForDisplay[i] << std::setw(7) << ".";
     i++;
     std::cout << std::setw(intMaxSurnameSize+1) << std::left << std::setfill(' ') << itemsForDisplay[i];
     i++;
-    std::cout << std::setw(intMaxSalaryLength+1) << std::left << std::setfill(' ') << itemsForDisplay[i]<< std::endl;
+    std::cout << "£" << std::setw(intMaxSalaryLength) << itemsForDisplay[i] << std::setfill(' ') << std::endl;
   }
 }
 
