@@ -41,15 +41,13 @@ void readFileFromSearch(std::string fileName, std::string searchString) {
 
     while(!fileobject.eof()) { //loop through the file
       getline(fileobject, fileLine);
+
       if (fileLine.find(searchString) != std::string::npos) {
         //search line by line and bring back the entire line if something is found
         results.push_back(fileLine);
         itemFound = true;
-        x++;
-      } else {
-        itemFound = false;
-        x++;
       }
+      x++;
     }
     fileobject.close();
     

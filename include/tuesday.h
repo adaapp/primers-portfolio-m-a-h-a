@@ -30,15 +30,21 @@ std::vector<int> definePassword(std::string password) {
   return totals;
 }
 
-int chckPassword(std::vector<int> passwordTotals) {
+int checkPassword(std::vector<int> passwordTotals) {
+  //declare these as it makes the below if statement slightly easier to understand.
+  const int specialCharacters = 2;
+  const int alphanumeric = 0;
+  const int numbers = 1;
+  const int maxPasswordLength = 3;
+
   //this is the logic to check the password and return the weakness (1) or strength (4). 0 is error
-  if ((passwordTotals[2] <= 0 || passwordTotals[2] <=3) && (passwordTotals[0] <=0 || passwordTotals[1] <=0)) {
+  if ((passwordTotals[specialCharacters] <= 0 || passwordTotals[specialCharacters] <=3) && (passwordTotals[alphanumeric] <=0 || passwordTotals[numbers] <=0)) {
     return 1;
-  } else if ((passwordTotals[3] >= 4 && passwordTotals[3] <= 7) || ((passwordTotals[0] <=0 || passwordTotals[1] <=0) && passwordTotals[2] >= 4)) {
+  } else if ((passwordTotals[maxPasswordLength] >= 4 && passwordTotals[maxPasswordLength] <= 7) || ((passwordTotals[alphanumeric] <=0 || passwordTotals[numbers] <=0) && passwordTotals[specialCharacters] >= 4)) {
     return 2;
-  } else if (passwordTotals[3] >= 8 && passwordTotals[0] >= 4 && passwordTotals[1] >= 2 && passwordTotals[2] >= 1) {
+  } else if (passwordTotals[maxPasswordLength] >= 8 && passwordTotals[alphanumeric] >= 4 && passwordTotals[numbers] >= 2 && passwordTotals[specialCharacters] >= 1) {
     return 4;
-  } else if (passwordTotals[3] >= 8 && passwordTotals[0] >= 4 && passwordTotals[1] >= 2 && passwordTotals[2] <= 0) {
+  } else if (passwordTotals[maxPasswordLength] >= 8 && passwordTotals[alphanumeric] >= 4 && passwordTotals[numbers] >= 2 && passwordTotals[specialCharacters] <= 0) {
     return 3;
   } else {
     return 0;
@@ -53,8 +59,10 @@ void passwordComplexityChecker(void) {
 	std::cout << "Please enter your password" << std::endl;
   std::getline(std::cin, userInput);
 
+  //send password & receive a vector back showing numbers, letters etc.
   passwordComplexity = definePassword(userInput);
-  passwordValue = chckPassword(passwordComplexity);
+  //send password and receive it's strength
+  passwordValue = checkPassword(passwordComplexity);
 
   std::string output = "Your password ";
   output += userInput;
@@ -79,6 +87,7 @@ void passwordComplexityChecker(void) {
   std::cout << output;
 }
 
+/*EMPLOYEE LIST REMOVAL*/
 void displayEmployeeList(std::vector<std::string> employees) {
   //simple function to loop through the list of employees and display them
   std::cout << std::endl << "There are currently " << employees.size() << " employees:" << std::endl;

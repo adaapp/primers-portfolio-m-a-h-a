@@ -30,8 +30,21 @@ I decided to allow the user to enter the name of the items they were purchasing,
 
 It was a relatively straight forward task. The main challenge was to discover how arrays work in C++ which led me to find out about Vectors. The next challenge was to ensure that, regardless of what the user entered for a monetary value, it always showed with two decimal places, so if a user entered "2", it should show "2.00".
 
-..  
-..  
+### Primer 3 - Password Complexity Checker
+
+### Primer 4 - Employee List Removal
+
+### Primer 5 - Phone Directory
+
+### Primer 6 - Data File Parser
+
+### Primer 7 - Sleep Timer
+
+### Primer 8 - Joining & Detaching Threads
+
+### Primer 9 - Car Class
+
+### Primer 10 - Area of
 
 ---
 ## Section 2 - Programming Paradigms

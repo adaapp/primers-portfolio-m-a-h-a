@@ -42,7 +42,6 @@ void fahrenheitCentigradeConversion(void) {
   std::string userInput, tempChoice;
   float useableTemp = 0.0;
   float convertedTemp = 0.0;
-  bool loopComplete = false;
 
   //get the starting temperature from the user
   std::cout << std::endl << "Please enter the starting temperature: " << std::endl;
@@ -58,18 +57,17 @@ void fahrenheitCentigradeConversion(void) {
     if (tempChoice == "C" || tempChoice == "c") {
       convertedTemp = fahrenheitToCentigrade(useableTemp); //convert temperature
       output(useableTemp, convertedTemp, "CENTIGRADE", "FAHRENHEIT"); //show output
-      loopComplete = true; //close loop
     }
     if (tempChoice == "F" || tempChoice == "f") {
       convertedTemp = centigradeToFahrenheit(useableTemp);
       output(useableTemp, convertedTemp, "FAHRENHEIT", "CENTIGRADE");
-      loopComplete = true;
-    } else if (!loopComplete) {
+    } else {
       std::cout << std::endl << "Please enter only 'C' or 'F'." << std::endl;
     }
   }
 }
 
+/*SELF SERVICE CHECKOUT*/
 int sumQuantities(std::vector<int> vectorQty) {
   int quantitySum = 0;
   //loop through vector and sum quantity. Ampersand means don't make a copy, use the actual item
@@ -90,6 +88,11 @@ float sumTotal(std::vector<int> vectorQty, std::vector<float> vectorTtl) {
   return totalSum;
 }
 
+float roundSum(float number) {
+  //rounds the number and the setprecision ensures it looks like currency
+  return round(number * 100)/100;
+}
+
 void printReceipt(std::vector<std::string> allItemNames, std::vector<int> allItemQty, std::vector<float> allItemCosts) {
   #define SHOPPING_TAX 5.5 //shopping tax
   int totalItems = 0;
@@ -104,11 +107,11 @@ void printReceipt(std::vector<std::string> allItemNames, std::vector<int> allIte
 
   //print out a receipt showing number of items, name, cost each
   for (int i=0; i<allItemNames.size(); i++) {
-    std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << round(allItemCosts[i] * 100)/100 << " each." << std::endl;
+    std::cout << std::fixed << std::setprecision(2) << allItemQty[i] << " '" << allItemNames[i] << "' at £" << roundSum(allItemCosts[i]) << " each." << std::endl;
   }
   
   //display subtotal, tax amount and the total. Use round to keep things to two decimal places
-  std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << round(subtotal * 100)/100 << std::endl << "Shopping Tax = £" << round(totalTax * 100)/100 << std::endl << std::endl << "Total: £" << round((subtotal + totalTax) * 100)/100 << std::endl;
+  std::cout << std::fixed << std::setprecision(2) << std::endl << "Total Items = " << totalItems << std::endl << "Subtotal = £" << roundSum(subtotal) << std::endl << "Shopping Tax = £" << roundSum(totalTax) << std::endl << std::endl << "Total: £" << roundSum(subtotal + totalTax) << std::endl;
 }
 
 void selfServiceCheckout(void) {
