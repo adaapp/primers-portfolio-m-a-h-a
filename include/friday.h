@@ -20,11 +20,9 @@ class car {
 
   public:
     car() {
-      //std::cout << std::endl << "instantiated" << std::endl;
       initialise_car(DEFAULT_COLOUR, DEFAULT_MAKE, DEFAULT_ENGINE, DEFAULT_LOCKED);
     }
     car(std::string make, std::string colour) {
-     // std::cout << std::endl << "instantiated with params." << std::endl;
       set_colour(colour);
       set_make(make);
       engine_off();
@@ -41,22 +39,31 @@ class car {
     
     void engine_on(void) { 
       if (engine_turned_on) {
-        std::cout << "sorry";
+        std::cout << std::endl << "Sorry, the engine is already on" << std::endl;
       } else {
         engine_turned_on = true;
-        std::cout << "wang dang doodle";
       }
     };
     
-    void engine_off(void) { engine_turned_on = false; };
+    void engine_off(void) {
+      if (engine_turned_on) {
+        engine_turned_on = false;
+      } else {
+        std::cout << std::endl << "Sorry, the engine is already off" << std::endl;
+      }
+    };
     
     void locked(bool is_locked) {
-      if (is_locked) {
+      if (is_locked && car_locked) {
+        std::cout << std::endl << "Sorry, the car is already locked." << std::endl;
+      } else if (is_locked && !car_locked) {
         car_locked = true;
+      } else if (!is_locked && !car_locked) {
+        std::cout << std::endl << "Sorry, the car is already unlocked." << std::endl;
       } else {
         car_locked = false;
       }
-    }
+    };
 
     void status() {
       std::string engine_label, locked_label;
@@ -88,7 +95,6 @@ void carMenu(car my_car) {
 
     try {
       intUserInput = stoi(userInput);
-      std::cout << "int ui " << intUserInput << std::endl;
     } catch (std::exception e) {
       std::cout << "try catch error" << std::endl;
     }
@@ -96,7 +102,6 @@ void carMenu(car my_car) {
     switch (intUserInput) {
       case 1:
         my_car.engine_on();
-    //    engine_on();
         break;
       case 2:
         my_car.engine_off();
@@ -104,8 +109,11 @@ void carMenu(car my_car) {
       case 3:
         my_car.locked(true);
         break;
+      case 4:
+        my_car.locked(false);
+        break;
       default:
-        std::cout << "switch default" << std::endl;
+       userInput = "0";
     }
   } while (userInput != "0"); //check for quit key "0"
 }
