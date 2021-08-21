@@ -57,8 +57,7 @@ void fahrenheitCentigradeConversion(void) {
     if (tempChoice == "C" || tempChoice == "c") {
       convertedTemp = fahrenheitToCentigrade(useableTemp); //convert temperature
       output(useableTemp, convertedTemp, "CENTIGRADE", "FAHRENHEIT"); //show output
-    }
-    if (tempChoice == "F" || tempChoice == "f") {
+    } else if (tempChoice == "F" || tempChoice == "f") {
       convertedTemp = centigradeToFahrenheit(useableTemp);
       output(useableTemp, convertedTemp, "FAHRENHEIT", "CENTIGRADE");
     } else {

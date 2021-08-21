@@ -38,16 +38,14 @@ int checkPassword(std::vector<int> passwordTotals) {
   const int maxPasswordLength = 3;
 
   //this is the logic to check the password and return the weakness (1) or strength (4). 0 is error
-  if ((passwordTotals[specialCharacters] <= 0 || passwordTotals[specialCharacters] <=3) && (passwordTotals[alphanumeric] <=0 || passwordTotals[numbers] <=0)) {
+  if (((passwordTotals[specialCharacters] <= 0 || passwordTotals[specialCharacters] <=3) && (passwordTotals[alphanumeric] <=0 || passwordTotals[numbers] <=0)) || passwordTotals[maxPasswordLength] <4) {
     return 1;
-  } else if ((passwordTotals[maxPasswordLength] >= 4 && passwordTotals[maxPasswordLength] <= 7) || ((passwordTotals[alphanumeric] <=0 || passwordTotals[numbers] <=0) && passwordTotals[specialCharacters] >= 4)) {
-    return 2;
   } else if (passwordTotals[maxPasswordLength] >= 8 && passwordTotals[alphanumeric] >= 4 && passwordTotals[numbers] >= 2 && passwordTotals[specialCharacters] >= 1) {
     return 4;
   } else if (passwordTotals[maxPasswordLength] >= 8 && passwordTotals[alphanumeric] >= 4 && passwordTotals[numbers] >= 2 && passwordTotals[specialCharacters] <= 0) {
     return 3;
   } else {
-    return 0;
+    return 2;
   } 
 }
 

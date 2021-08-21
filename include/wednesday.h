@@ -65,7 +65,7 @@ void phoneDirectory(void) {
   std::string userInput;
   std::string fileName = "phoneDirectory.txt";
 
-	std::cout << "Please enter a name or telephone number to search:" << std::endl;
+	std::cout << "Please enter a name or telephone number to search (the search is case sensitive):" << std::endl;
   std::getline(std::cin, userInput);
 
   readFileFromSearch(fileName, userInput);

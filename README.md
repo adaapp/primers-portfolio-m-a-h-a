@@ -92,19 +92,53 @@ In this example, the main thread starts, followed by the next two threads, both 
 They await for the pre-defined time and then end one after another, followed by the main thread...once I'd remembered to sleep that too, otherwise it ends prior to the other threads and the screen is all over the place.
 
 ### Primer 9 - Car Class
+This primer was all around the concept of classes which brings with it things like abstraction, encapsulation and all those additional good things. This is an area of advanced programming we use a lot at work but one in which I am currently struggling the most to grasp. I understand the concepts and I can see their benefits (see below) but I struggle putting it into practice, particularly with C#.
+
 ### Reflection (as well as issues, challenges & resolutions)
+It transpires that I wasn't a million miles away with my initial attempt at this, I'm not sure why it wasn't working exactly but I decided to move everything into the same class which caused different issues. Once I pulled everything out again it started to work.
+
+Once I get my head around what a class is and why and when you would use them I seem to be ok, it's just that I'm not (yet) using them day-in-day-out and so I forget the structure and use of them and, in turn, get frustrated with myself. Perserverience got me through this and quite a bit of try and fail.
 
 ### Primer 10 - Area of
+This primer tasked us with building three classes which would provide the area of three shapes based on given dimensions. Once the initial concept was provided it was a reasonably straight forward task as they were all pretty similar.
+
 ### Reflection (as well as issues, challenges & resolutions)
+
+I could have enhanced these to accept inputs from the user for the dimensions and which shape they wanted an area for. I didn't owing to time and other things going on that are consuming brain power at the moment!
 
 ---
 ## Section 2 - Programming Paradigms
-### Programming Paradigms (600)
-Simply put, a programming paradigm, for example, procedural, object-oriented, functional, structured, declarative, imperative and event driven can be described as a specific approach used when trying to solve a problem.  Although many programming languages can (and do) support multiple paradigms this discussion will focus more specifically on the possible benefits with examples of the potential differences and similarities of five from the above list. These are ...
+### Programming Paradigms
+Simply put, a programming paradigm, for example, procedural, object-oriented, functional, structured, declarative, imperative and event driven can be described as a specific approach used when trying to solve a problem.  Although many programming languages can (and do) support multiple paradigms this discussion will focus more specifically on the possible benefits with examples of the potential differences and similarities of five from the above list.
+* Procedural - Procedural Programming is seen by many as the 'first step' a developer will take on their learning path. In essence, the code is one that instructs, directly, the machine and informs it on how to tackle a task in logical steps. Procedural Programming uses a linear, 'top-down' approach in execution with code split out into procedures, aka functions or routines.
+* Object-orientated - This paradigm can be thought of like Lego, in so much as each brick, or object (of code), will link to another, enabling programmers to create huge programs using tiny objects, small pieces of code, all working together. This has obvious advantages in terms of things like separation of concern and allowing objects to do one thing really well, enabling upgrading to be easier.
+* Functional - This paradigm sees programmers make their programs by writing multiple functions, as opposed to objects and procedures. It takes its ideas from mathematics and, as such, does not allow for the changing of state or mutable data. The idea is to minimize 'moving parts' of your code which, in turn, should make it easier to comprehend.
+* Structured - Sometimes known as modular programming, Structured encourages the programmer to re-use elements as much as possible, as well as using switch statements and while and for loops, whilst keeping the code readable. Elements should be able to be written in any programming language providing they use a common interface or API that, ideally, does not compromise security.
+* Declarative - This method of programming involves a high level of abstraction between the machine and programmer. The programmer is more concerned with defining the outcome, the end goal, as opposed to detailing all the steps to get there. In other words, Declarative programming is concerned more with the 'what' needs to be done, than the 'how' it needs to be done, leaving the latter up to the machine to interpret.
+* Imperative - This paradigm is what the vast majority of programmers use today. A program written imperatively is made-up of clearly defined sequences of instructions to a machine, commands if you will, that tell the machine what to do, when, to fulfil the desired outcomes. Code written Imperatively is, more often than not, compiled to make it readable by the machine.
+
+As has already been stated, many programming languages use more than one paradigm, combining them out of necessity or in an attempt to make a programmers life easier.
+
+It could be said that a programmer, in the process of designing a solution to a problem, would use most, if not all of the paradigms, prior to reaching the final solution.
+
+They could Declaratively define the solution beforehand, from a high level approach, detailing what they wish to achieve. They may then move onto a combination of Procedural, Structural and Functional, planning the functions they will require and where they may go within a program and what can be re-used as much as possible. Finally, they would use a combination of Imperative and Object-orientated (in truth all of the above) to build the final solution in their chosen programming language.
+
+In my opinion the correct paradigm should be chosen to deliver the best solution.
+
 
 ---
 ## Section 3 - Continued Professional Development
-### Benefits of becoming a Polyglot Programmer (400 (say 100 per paradigm))
-Vestibulum vitae semper sem. Duis leo leo, suscipit at felis non, pellentesque varius massa. Sed sit amet orci nibh. Morbi scelerisque faucibus elit, vitae mollis turpis finibus eget. In convallis euismod nunc non imperdiet. Duis ultricies pulvinar lorem, sed molestie nunc porta at. Aenean arcu ante, efficitur nec felis sed, feugiat iaculis turpis. Vestibulum eu elementum diam. Quisque nec tortor auctor, scelerisque ante vitae, fringilla tellus.
+### Benefits of becoming a Polyglot Programmer
+A Polyglot Programmer is defined as someone who can write code in multiple languages. Many programmers are polyglots whether they realise it or not, for example, in writing the frontend for a website a programmer will use multiple languages, HTML, CSS, JavaScript etc.
 
-Quisque ligula lectus, efficitur quis malesuada sit amet, malesuada sed nibh. In lorem erat, elementum quis tempus nec, rhoncus ac ante. Mauris suscipit massa tempor, pulvinar neque vel, gravida nulla. Donec massa diam, molestie in diam nec, vulputate faucibus ligula. Aliquam erat volutpat. Aliquam sit amet dui ligula. Nullam euismod eros ultrices magna convallis lobortis. Proin convallis placerat tincidunt. Quisque interdum, nisi id egestas luctus, augue libero lacinia urna, sit amet tempus nisl sem nec quam. Vestibulum interdum urna mauris, vel dignissim nisi dignissim egestas. Donec volutpat dictum dui, at egestas sem tristique nec.
+The benefits to being a Polyglot Programmer may seem obvious: surely if you can write in C#, Java, Go and/or more your employment options would be numerous? You wouldn’t have to spend time looking for a job with a specific program languages, you’d have a choice of many.
+
+Sadly, this is not generally the case. Whilst some employers will recognise that you can write in multiple languages and see it as an advantage, many organisations still only use one, main, programming language and want you to be an expert in that language, rather than someone who knows many languages well.
+
+Another benefit of being a Polyglot Programmer is it gives you a well rounded knowledge and, in some circumstances, an edge over someone who, although they may be an ‘expert’ in a particular language, doesn’t have the ability to see things from a different perspective. 
+
+As an example, what if we said that C# programmers always took a particular approach to solution A. That is the way it is always done when using C#. But what if Java solves the same solution in a slightly different approach, an approach that is also possible in C#. And what if that approach turned out to be better, more efficient say, or easier to maintain. If you only knew C#, you would never know to try this other approach.
+
+By constantly learning new languages you are also keeping yourself abreast of the latest developments in technology, which is no mean feat these days. Even if you tried a new language at home, just running something on your local machine, giving it a go, it opens your eyes to new things, new approaches, new possibilities.
+
+Many people, particularly developers in my own experience, love using the ‘latest and greatest’ thing. The latest piece of kit, newest edition of software, BETA versions of languages. Being a Polyglot Programmer means you have the ability to try the latest languages, learn them, ‘have a play’. In this regard it can be said to be good for your mental health, even if sitting a computer day-in-day-out is perhaps not the best for your physical health.

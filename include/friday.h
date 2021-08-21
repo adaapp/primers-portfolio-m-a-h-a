@@ -120,6 +120,44 @@ void carClass(void) {
   carMenu(my_car);
 }
 
+class circle {
+  private:
+    float PI = 3.14159;
+    int x;
+
+  public:
+    circle() {}
+
+    float area(float r) { return PI*(r*r); }
+};
+
+class square {
+  private:
+    int a;
+
+  public:
+    square() {}
+
+    float area(float s) { return s*s; }
+};
+
+class rectangle {
+  private:
+    int l, w;
+
+  public:
+    rectangle() {}
+    
+    float area(float l, float w) { return l*w; }
+};
+
 void areaOf(void) {
-		std::cout << " - areaOf: not yet implemented\n\n";
+		circle myCircle;
+    std::cout << "Area of Circle where radius is 4.5 " << myCircle.area(4.5) << std::endl;
+
+    square mySquare;
+    std::cout << std::endl << "Area of Square where side is 6.1: " << mySquare.area(6.1) << std::endl;
+
+    rectangle myRectangle;
+    std::cout << std::endl << "Area of a Rectangle where the length is 5.9 and width is 4: " << myRectangle.area(5.9, 4) << std::endl;
 }
